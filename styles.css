@@ -1,0 +1,716 @@
+/* ==========================================================================
+   CASIO ROYALE AE-1200WH-1AV • APPLE-INSPIRED CINEMATIC LUXURY STYLING
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&family=Orbitron:wght@400;600;700;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800;900&display=swap');
+
+:root {
+  --bg-deep: #000000;
+  --bg-subtle: #080808;
+  --bg-card: #0F1013;
+  --bg-card-hover: #16181D;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-glow: rgba(245, 158, 11, 0.35);
+  
+  --amber-primary: #F59E0B;
+  --amber-bright: #FBBF24;
+  --amber-glow: rgba(245, 158, 11, 0.4);
+  
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+  --font-display: 'Syne', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-digital: 'Orbitron', 'JetBrains Mono', monospace;
+}
+
+/* Base Resets */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bg-deep);
+  color: #F1F5F9;
+  font-family: var(--font-sans);
+  overflow-x: clip;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Lenis Butter-Smooth Momentum Scroll Styles */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-deep);
+  overflow-x: clip;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #222222;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--amber-primary);
+}
+
+/* Selection */
+::selection {
+  background: rgba(245, 158, 11, 0.3);
+  color: #FBBF24;
+}
+
+/* Scanlines Texture */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 999;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%, 
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+  opacity: 0.25;
+}
+
+/* Apple-Style Framer Motion Utility Classes */
+.motion-reveal {
+  opacity: 0;
+  transform: translateY(40px) scale(0.97);
+  filter: blur(10px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.motion-reveal.in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0px);
+}
+
+/* Delay Helpers */
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
+.delay-600 { transition-delay: 600ms; }
+
+/* ==========================================================================
+   POP-UP ANIMATION FOR [SPECIFICATIONS & PRICE] BOXES 1, 2, 3, 4, 5, 6
+   Spring-physics overshoot cubic-bezier + depth scaling
+   ========================================================================== */
+.spec-box-popup {
+  opacity: 0;
+  transform: translateY(60px) scale(0.82);
+  filter: blur(10px);
+  transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.34, 1.56, 0.64, 1),
+              filter 0.55s ease-out,
+              border-color 0.35s ease,
+              box-shadow 0.35s ease;
+  will-change: opacity, transform, filter;
+  position: relative;
+}
+
+.spec-box-popup.popped-up {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0px);
+}
+
+/* Staggered sequential delay for boxes 1 to 6 */
+.spec-box-popup.spec-box-1 { transition-delay: 100ms; }
+.spec-box-popup.spec-box-2 { transition-delay: 200ms; }
+.spec-box-popup.spec-box-3 { transition-delay: 300ms; }
+.spec-box-popup.spec-box-4 { transition-delay: 400ms; }
+.spec-box-popup.spec-box-5 { transition-delay: 500ms; }
+.spec-box-popup.spec-box-6 { transition-delay: 600ms; }
+
+/* Interactive Hover Pop-Up Effect */
+.spec-box-popup:hover {
+  transform: translateY(-8px) scale(1.035) !important;
+  border-color: rgba(245, 158, 11, 0.5) !important;
+  box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.95), 0 0 35px rgba(245, 158, 11, 0.22) !important;
+  z-index: 15;
+}
+
+/* Apple-Style Scroll Scrub Text Lighting */
+.scrub-text-light {
+  background: linear-gradient(to right, #FFFFFF var(--text-fill, 0%), rgba(255, 255, 255, 0.2) var(--text-fill, 0%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: --text-fill 0.1s ease;
+}
+
+/* Ethereal Glow Elements */
+.ambient-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+}
+
+.glow-amber {
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.18) 0%, rgba(245, 158, 11, 0.04) 50%, transparent 70%);
+}
+
+.glow-blue {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, transparent 70%);
+}
+
+/* Glassmorphism Panels */
+.apple-card {
+  background: rgba(15, 16, 20, 0.65);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s ease,
+              box-shadow 0.4s ease;
+}
+
+.apple-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(245, 158, 11, 0.35);
+  box-shadow: 0 25px 50px -10px rgba(0, 0, 0, 0.9), 0 0 30px rgba(245, 158, 11, 0.1);
+}
+
+/* ==========================================================================
+   SCROLL-BASED CANVAS HERO SEQUENCE (APPLE KEYNOTE SCRUB)
+   ========================================================================== */
+.hero-sequence-container {
+  height: 500vh;
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.hero-sequence-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+  z-index: 10;
+  will-change: opacity;
+}
+
+.hero-sequence-canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 1;
+  will-change: opacity;
+}
+
+/* Ambient dark vignette for canvas contrast */
+.hero-canvas-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.6) 80%, #000000 100%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Scroll-Based Text Overlays on Top */
+.hero-text-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.hero-step-card {
+  position: absolute;
+  max-width: 780px;
+  width: 90%;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(35px) scale(0.97);
+  filter: blur(10px);
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
+  pointer-events: none;
+  will-change: opacity, transform, filter;
+}
+
+.hero-step-card.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0px);
+}
+
+.hero-step-card-left {
+  text-align: left;
+  left: max(5vw, 2rem);
+  right: auto;
+}
+
+.hero-step-card-right {
+  text-align: right;
+  right: max(5vw, 2rem);
+  left: auto;
+}
+
+/* Loading Bar for 147 Frames */
+.canvas-loader {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(14, 15, 18, 0.8);
+  backdrop-filter: blur(12px);
+  padding: 6px 14px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--amber-primary);
+  opacity: 1;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+.canvas-loader.loaded {
+  opacity: 0;
+}
+
+.canvas-loader-bar {
+  width: 50px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.canvas-loader-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--amber-primary);
+  transition: width 0.1s linear;
+}
+
+/* Minimal Scroll Prompt in Hero */
+.hero-scroll-cue {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* ==========================================================================
+   HERO SECTION (PURE CINEMATIC • ZERO BUTTONS)
+   ========================================================================== */
+.hero-pure-container {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6rem 1.5rem 3rem 1.5rem;
+  overflow: hidden;
+}
+
+.hero-watch-stage {
+  position: relative;
+  width: min(85vw, 540px);
+  height: min(85vw, 540px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+
+.hero-watch-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+  filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.95)) drop-shadow(0 0 30px rgba(245, 158, 11, 0.15));
+  transition: transform 0.15s ease-out;
+  will-change: transform;
+}
+
+/* Subtle Scroll Cue Pill (Visual only, no click needed) */
+.scroll-indicator-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.scroll-indicator-track {
+  width: 20px;
+  height: 34px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+}
+
+.scroll-indicator-dot {
+  width: 4px;
+  height: 8px;
+  background: var(--amber-primary);
+  border-radius: 2px;
+  animation: scrollWheel 2.2s infinite cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@keyframes scrollWheel {
+  0% { transform: translateY(0); opacity: 1; }
+  60% { transform: translateY(12px); opacity: 0; }
+  61% { transform: translateY(0); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* ==========================================================================
+   DETAILS & PRICE SECTION (APPLE KEYNOTE STYLE)
+   ========================================================================== */
+.price-tag-giant {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, #FFFFFF 30%, #F59E0B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+
+/* ==========================================================================
+   LIVE LCD DISPLAY MOCKUP & BUTTONS
+   ========================================================================== */
+.lcd-chassis {
+  background: #0D0E11;
+  border-radius: 28px;
+  border: 2px solid #232730;
+  box-shadow: 
+    0 30px 60px -15px rgba(0, 0, 0, 0.9), 
+    inset 0 2px 4px rgba(255, 255, 255, 0.08),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.8);
+  position: relative;
+  overflow: hidden;
+}
+
+.lcd-screen-inner {
+  background: #151C17;
+  border-radius: 16px;
+  border: 2px solid #283038;
+  position: relative;
+  box-shadow: inset 0 4px 12px rgba(0, 0, 0, 0.8);
+  transition: background 0.4s ease, box-shadow 0.4s ease;
+}
+
+.lcd-screen-inner.amber-active {
+  background: #B45309 !important;
+  box-shadow: 
+    inset 0 0 40px #F59E0B, 
+    0 0 40px rgba(245, 158, 11, 0.5),
+    inset 0 0 15px rgba(255, 255, 255, 0.4) !important;
+}
+
+.lcd-screen-inner.amber-active * {
+  color: #1A0D00 !important;
+  text-shadow: 0 0 1px rgba(0,0,0,0.4) !important;
+}
+
+.lcd-screen-inner.amber-active svg path,
+.lcd-screen-inner.amber-active svg circle,
+.lcd-screen-inner.amber-active svg line {
+  stroke: #1A0D00 !important;
+  fill: #1A0D00 !important;
+}
+
+.lcd-screen-inner.amber-active .lcd-active-zone {
+  fill: #2E1500 !important;
+}
+
+.radar-subdial {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 2px solid rgba(245, 158, 11, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.radar-subdial::before {
+  content: '';
+  position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  border: 1px dashed rgba(245, 158, 11, 0.35);
+}
+
+.radar-hand-hour {
+  position: absolute;
+  width: 3px;
+  height: 24px;
+  background: #E2E8F0;
+  top: 21px;
+  left: 43px;
+  transform-origin: bottom center;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+}
+
+.radar-hand-min {
+  position: absolute;
+  width: 2px;
+  height: 34px;
+  background: #F59E0B;
+  top: 11px;
+  left: 44px;
+  transform-origin: bottom center;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.8);
+}
+
+.radar-pivot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #F59E0B;
+  z-index: 3;
+}
+
+.world-map-svg path {
+  fill: #22292F;
+  transition: fill 0.3s ease, filter 0.3s ease;
+}
+
+.world-map-svg path.map-zone-active {
+  fill: #F59E0B !important;
+  filter: drop-shadow(0 0 4px #F59E0B);
+}
+
+.lcd-digit-main {
+  font-family: var(--font-digital);
+  letter-spacing: 2px;
+  color: #F8FAFC;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.lcd-digit-amber {
+  font-family: var(--font-digital);
+  color: #F59E0B;
+  text-shadow: 0 0 8px rgba(245, 158, 11, 0.5);
+}
+
+.city-pill {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.city-pill:hover {
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.5);
+  color: #FBBF24;
+}
+
+.city-pill.active {
+  background: var(--amber-primary);
+  border-color: var(--amber-bright);
+  color: #000000;
+  font-weight: 700;
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+}
+
+/* Water Ripple Animation */
+.water-ripple-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.water-wave {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, transparent 60%);
+  border-radius: 40%;
+  animation: waveRotate 12s infinite linear;
+}
+
+@keyframes waveRotate {
+  0% { transform: translate(-25%, -25%) rotate(0deg); }
+  100% { transform: translate(-25%, -25%) rotate(360deg); }
+}
+
+.battery-gauge-circle {
+  stroke-dasharray: 283;
+  stroke-dashoffset: 28;
+  transition: stroke-dashoffset 1s ease;
+}
+
+.stopwatch-glow {
+  text-shadow: 0 0 15px rgba(245, 158, 11, 0.6);
+}
+
+/* Modals & Drawers */
+.cart-drawer-overlay,
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(12px);
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.cart-drawer-overlay.active,
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(100vw, 420px);
+  background: #0E0F12;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 210;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: -20px 0 50px rgba(0, 0, 0, 0.9);
+}
+
+.cart-drawer.active {
+  transform: translateX(0);
+}
+
+.checkout-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -45%) scale(0.95);
+  width: min(90vw, 520px);
+  background: #0E0F12;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: 20px;
+  z-index: 210;
+  padding: 28px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(245, 158, 11, 0.15);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.checkout-modal.active {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.custom-input {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  border-radius: 8px;
+  padding: 10px 14px;
+  width: 100%;
+  font-family: var(--font-sans);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.custom-input:focus {
+  border-color: var(--amber-primary);
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+}
+
+@media (max-width: 768px) {
+  .hero-watch-stage {
+    width: 90vw;
+    height: 90vw;
+  }
+  .hud-pin-card {
+    max-width: 190px;
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+}
+
+/* ==========================================================================
+   CREATOR & ENGINEERING CONTACT SECTION (CREATED BY ANOOP)
+   ========================================================================== */
+.creator-contact-card {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s ease,
+              background-color 0.4s ease,
+              box-shadow 0.4s ease;
+  will-change: transform;
+}
+
+.creator-contact-card:hover {
+  transform: translateY(-6px) scale(1.025);
+  border-color: rgba(245, 158, 11, 0.5) !important;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.9), 0 0 30px rgba(245, 158, 11, 0.2) !important;
+}
